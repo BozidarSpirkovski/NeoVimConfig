@@ -29,17 +29,6 @@ require("lazy").setup({
 	{"mbbill/undotree"},
 	{"tpope/vim-fugitive"},
 	{
-		"L3MON4D3/LuaSnip",
-		version = "v2.*", -- optional but recommended
-		build = "make install_jsregexp", -- optional: improves regex support
-		dependencies = {
-			"rafamadriz/friendly-snippets", -- optional: prebuilt snippets
-		},
-		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
-		end,
-	},
-	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
 		dependencies = {
@@ -67,6 +56,24 @@ require("lazy").setup({
 			require('gitsigns').setup()
 		end,
 		event = { "BufReadPre", "BufNewFile" }, -- optional lazy loading
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",      -- load after startup
+		config = function()
+			local wk = require("which-key")
+			wk.setup({
+				plugins = { spelling = { enabled = true } },
+				window  = { border = "rounded", position = "bottom" },
+			})
+
+			-- Optional grouping
+			-- wk.register({
+			-- 	["<leader>v"] = { name = "+LSP" },
+			-- 	["<leader>p"] = { name = "+Telescope" },
+			-- 	["<leader>e"] = { name = "+ESLint" },
+			-- })
+		end,
 	},
 
 })
